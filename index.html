@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wise Currency Converter</title>
     <link rel="stylesheet" href="styles/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
       rel="stylesheet"
-    />
+    /> -->
   </head>
   <body>
     <div class="main-container">
@@ -21,11 +21,18 @@
       <div class="converter-container">
         <div class="from-container">
           <div class="from-modal-container">
-            <div class="search">
+            <div class="search-container">
               <img src="img/search.svg" alt="search" />
-              <input type="text" placeholder="Search..." />
+              <input type="text" placeholder="Search..." value="" />
             </div>
-            <div class="list"></div>
+            <div class="list-container">
+              <ul class="list">
+                <li>
+                  <div><img src="img/usd.svg" alt="usd" /><span>USD</span></div>
+                  <img src="img/picked.svg" />
+                </li>
+              </ul>
+            </div>
           </div>
           <p>Amount</p>
           <div class="from-input-currency-container">
@@ -50,6 +57,7 @@
         </div>
       </div>
     </div>
+    <script src="scripts/rates.js"></script>
     <script src="scripts/main.js"></script>
   </body>
 </html>
