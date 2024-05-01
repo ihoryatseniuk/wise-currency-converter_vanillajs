@@ -378,3 +378,15 @@ input::-webkit-inner-spin-button {
   width: 25px;
   margin-right: 10px;
 }
+
+.get-exchange-rate-button {
+  display: inline-block;
+  padding: 20px 61px 21px 60px;
+  border-radius: 44px;
+  margin-top: 25px;
+  margin-left: 293px;
+  background-color: #9fe870;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}
