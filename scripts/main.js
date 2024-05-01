@@ -29,20 +29,34 @@ const toRatesArray = [
 const openModal = (modalContainerElement, overlayElement) => {
   modalContainerElement.classList.remove("hidden");
   overlayElement.classList.remove("hidden");
+  if (modalContainerElement === fromModalContainerElement) {
+    fromSearchContainerInput.focus();
+  } else if (modalContainerElement === toModalContainerElement) {
+    toSearchContainerInput.focus();
+  }
 };
 
 const closeModal = (modalContainerElement, overlayElement) => {
   modalContainerElement.classList.add("hidden");
   overlayElement.classList.add("hidden");
+  if (modalContainerElement === fromModalContainerElement) {
+    fromSearchContainerInput.value = "";
+    renderer(fromListElement, fromRatesArray);
+  } else if (modalContainerElement === toModalContainerElement) {
+    toSearchContainerInput.value = "";
+    renderer(toListElement, toRatesArray);
+  }
 };
 
 const renderer = (listElement, array) => {
+  rateRenderer();
   if (listElement === fromListElement) {
     listElement.innerHTML = "";
     array.forEach((element) => {
       if (element.picked) {
         fromCurrencyElementImage.src = `${element.img}`;
         fromCurrencyElementText.innerHTML = `${element.name}`;
+        currency1Element.innerHTML = `${element.name}`;
       }
       listElement.innerHTML += `<li class="from-li-element">
     <div><img src="${element.img}" /><span>${element.name}</span></div>
@@ -72,8 +86,8 @@ const renderer = (listElement, array) => {
             fromRatesArray[i].picked = true;
           }
         }
-
         renderer(listElement, array);
+        closeModal(fromModalContainerElement, fromOverlayElement);
       });
     });
 
@@ -84,6 +98,7 @@ const renderer = (listElement, array) => {
       if (element.picked) {
         toCurrencyElementImage.src = `${element.img}`;
         toCurrencyElementText.innerHTML = `${element.name}`;
+        currency2Element.innerHTML = `${element.name}`;
       }
       listElement.innerHTML += `<li class="to-li-element">
     <div><img src="${element.img}" /><span>${element.name}</span></div>
@@ -115,6 +130,7 @@ const renderer = (listElement, array) => {
         }
 
         renderer(listElement, array);
+        closeModal(toModalContainerElement, toOverlayElement);
       });
     });
 
@@ -129,9 +145,42 @@ const search = (listElement, array, value) => {
   renderer(listElement, filteredArray);
 };
 
+const rateRenderer = () => {
+  let fromCurrency;
+  let toCurrency;
+  let toCurrencyRate;
+  let fromCurrencyRate;
+
+  fromRatesArray.forEach((element) => {
+    if (element.picked) {
+      fromCurrency = element.name;
+      fromCurrencyRate = element.rate;
+    }
+  });
+
+  toRatesArray.forEach((element) => {
+    if (element.picked) {
+      toCurrency = element.name;
+      toCurrencyRate = element.rate;
+    }
+  });
+
+  const result = 1000 * (toCurrencyRate / fromCurrencyRate);
+
+  fromRateElement.innerHTML = `<p>1000 ${fromCurrency} = <span style="color: #008026">${result.toFixed(
+    2
+  )}</span> ${toCurrency}</p>
+  <p>Mid-market exchange rate at 10:04</p>`;
+};
+
 //Functions End ====>
 
 //Variables Start ====>
+
+const fromRateElement = document.querySelector(".from-rate");
+
+const currency1Element = document.querySelector(".currency1");
+const currency2Element = document.querySelector(".currency2");
 
 const fromCurrencyElement = document.querySelector(".from-currency");
 const fromCurrencyElementImage = document.querySelector(".from-currency img");
@@ -239,3 +288,4 @@ toInputCurrencyContainerInputElement.addEventListener("blur", () => {
 
 renderer(fromListElement, fromRatesArray);
 renderer(toListElement, toRatesArray);
+rateRenderer();
