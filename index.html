@@ -21,20 +21,20 @@
       <div class="converter-container">
         <div class="from-container">
           <div class="from-modal-container hidden">
-            <div class="search-container">
+            <div class="from-search-container">
               <img src="img/search.svg" alt="search" />
               <input type="text" placeholder="Search..." value="" />
             </div>
-            <div class="list-container">
-              <ul class="list">
+            <div class="from-list-container">
+              <ul class="from-list">
                 <li>
-                  <div><img src="img/usd.svg" alt="usd" /><span>USD</span></div>
+                  <div><img src="img/usd.svg" /><span>USD</span></div>
                   <img src="img/picked.svg" />
                 </li>
               </ul>
             </div>
           </div>
-          <div class="overlay hidden"></div>
+          <div class="from-overlay hidden"></div>
           <p>Amount</p>
           <div class="from-input-currency-container">
             <input type="number" class="from-input" value="1000" />
@@ -52,13 +52,33 @@
           <div class="revert-image"></div>
         </div>
         <div class="to-container">
+          <div class="to-modal-container hidden">
+            <div class="to-search-container">
+              <img src="img/search.svg" alt="search" />
+              <input type="text" placeholder="Search..." value="" />
+            </div>
+            <div class="to-list-container">
+              <ul class="to-list">
+                <li>
+                  <div><img src="img/usd.svg" alt="usd" /><span>USD</span></div>
+                  <img src="img/picked.svg" />
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="to-overlay hidden"></div>
           <p>Converted to</p>
-          <div class="to-input"></div>
+          <div class="to-input-currency-container">
+            <input type="number" class="to-input" />
+            <div class="to-currency">
+              <img src="img/usd.svg" alt="usd" /><span>USD</span
+              ><img src="img/arrow.svg" alt="arrow" />
+            </div>
+          </div>
           <div class="get-exchange-rate-button"></div>
         </div>
       </div>
     </div>
-    <script src="scripts/rates.js"></script>
     <script src="scripts/main.js"></script>
   </body>
 </html>

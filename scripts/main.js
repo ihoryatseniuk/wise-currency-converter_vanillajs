@@ -1,114 +1,191 @@
-// =========================================================================
-// =========================== Functions ===================================
-// =========================================================================
+const fromRatesArray = [
+  { name: "CAD", img: "img/cad.svg", rate: 1.36, picked: false },
+  { name: "CNY", img: "img/cny.svg", rate: 7.24, picked: false },
+  { name: "CZK", img: "img/czk.svg", rate: 23.53, picked: false },
+  { name: "EUR", img: "img/eur.svg", rate: 0.93, picked: false },
+  { name: "GBP", img: "img/gbp.svg", rate: 0.8, picked: false },
+  { name: "JPY", img: "img/jpy.svg", rate: 154.77, picked: false },
+  { name: "PLN", img: "img/pln.svg", rate: 4.024, picked: false },
+  { name: "RUB", img: "img/rub.svg", rate: 93.22, picked: false },
+  { name: "UAH", img: "img/uah.svg", rate: 40.0, picked: false },
+  { name: "USD", img: "img/usd.svg", rate: 1, picked: true },
+];
 
-const openModal = () => {
-  fromModalContainerElement.classList.remove("hidden");
+const toRatesArray = [
+  { name: "CAD", img: "img/cad.svg", rate: 1.36, picked: false },
+  { name: "CNY", img: "img/cny.svg", rate: 7.24, picked: false },
+  { name: "CZK", img: "img/czk.svg", rate: 23.53, picked: false },
+  { name: "EUR", img: "img/eur.svg", rate: 0.93, picked: false },
+  { name: "GBP", img: "img/gbp.svg", rate: 0.8, picked: false },
+  { name: "JPY", img: "img/jpy.svg", rate: 154.77, picked: false },
+  { name: "PLN", img: "img/pln.svg", rate: 4.024, picked: false },
+  { name: "RUB", img: "img/rub.svg", rate: 93.22, picked: false },
+  { name: "UAH", img: "img/uah.svg", rate: 40.0, picked: true },
+  { name: "USD", img: "img/usd.svg", rate: 1, picked: false },
+];
+
+// Functions Start ====>
+
+const openModal = (modalContainerElement, overlayElement) => {
+  modalContainerElement.classList.remove("hidden");
   overlayElement.classList.remove("hidden");
-  fromSearchInput.value = "";
-  ratesRenderer(rates);
 };
 
-const closeModal = () => {
-  fromModalContainerElement.classList.add("hidden");
-  fromSearchInput.value = "";
-  ratesRenderer(rates);
+const closeModal = (modalContainerElement, overlayElement) => {
+  modalContainerElement.classList.add("hidden");
+  overlayElement.classList.add("hidden");
 };
 
-const attachListeners = (array) => {
-  const liElements = document.querySelectorAll(".li-element");
-  for (let i = 0; i < liElements.length; i++) {
-    liElements[i].addEventListener("click", () => {
-      fromModalContainerElement.classList.add("hidden");
-      overlayElement.classList.add("hidden");
-      array.forEach((element) => {
-        element.picked = false;
-      });
-      rates.forEach((element) => {
-        element.picked = false;
-      });
-      array[i].picked = true;
-      ratesRenderer(array);
-    });
-  }
-};
-
-const ratesRenderer = (array) => {
-  listElement.innerHTML = "";
-  for (let i = 0; i < array.length; i++) {
-    const arrayObject = array[i];
-    const { name, img, rate, picked } = arrayObject;
-    listElement.innerHTML += `<li class="li-element">
-    <div><img src="${img}"/><span>${name}</span></div>
-    <img src="${picked === true ? "img/picked.svg" : ""}" />
+const renderer = (listElement, array) => {
+  if (listElement === fromListElement) {
+    listElement.innerHTML = "";
+    array.forEach((element) => {
+      listElement.innerHTML += `<li class="from-li-element">
+    <div><img src="${element.img}" /><span>${element.name}</span></div>
+    <img src="${element.picked ? "img/picked.svg" : ""}" />
   </li>`;
+    });
+
+    // Render of li elements end====>
+
+    // Attach event listeners to li elements start====>
+
+    const liElements = document.querySelectorAll(".from-li-element");
+    liElements.forEach((element1, index) => {
+      element1.addEventListener("click", () => {
+        array.forEach((element2) => {
+          element2.picked = false;
+        });
+
+        array[index].picked = true;
+
+        for (let i = 0; i < fromRatesArray.length; i++) {
+          fromRatesArray[i].picked = false;
+        }
+
+        for (let i = 0; i < fromRatesArray.length; i++) {
+          if (fromRatesArray[i].name === array[index].name) {
+            fromRatesArray[i].picked = true;
+          }
+        }
+
+        renderer(listElement, array);
+      });
+    });
+
+    // Attach event listeners to li elements end====>
+  } else if (listElement === toListElement) {
+    listElement.innerHTML = "";
+    array.forEach((element) => {
+      listElement.innerHTML += `<li class="to-li-element">
+    <div><img src="${element.img}" /><span>${element.name}</span></div>
+    <img src="${element.picked ? "img/picked.svg" : ""}" />
+  </li>`;
+    });
+
+    // Render of li elements end====>
+
+    // Attach event listeners to li elements start====>
+
+    const liElements = document.querySelectorAll(".to-li-element");
+    liElements.forEach((element1, index) => {
+      element1.addEventListener("click", () => {
+        array.forEach((element2) => {
+          element2.picked = false;
+        });
+
+        array[index].picked = true;
+
+        for (let i = 0; i < toRatesArray.length; i++) {
+          toRatesArray[i].picked = false;
+        }
+
+        for (let i = 0; i < toRatesArray.length; i++) {
+          if (toRatesArray[i].name === array[index].name) {
+            toRatesArray[i].picked = true;
+          }
+        }
+
+        renderer(listElement, array);
+      });
+    });
+
+    // Attach event listeners to li elements end====>
   }
-  currencyButtonRenderer();
-  attachListeners(array);
 };
 
-const searchCurrency = (value) => {
-  const filteredArray = rates.filter((element) => {
+const search = (listElement, array, value) => {
+  const filteredArray = array.filter((element) => {
     return element.name.startsWith(`${value}`);
   });
-  ratesRenderer(filteredArray);
+  renderer(listElement, filteredArray);
 };
 
-const currencyButtonRenderer = () => {
-  rates.forEach((element) => {
-    if (element.picked) {
-      fromCurrencyElement.innerHTML = ` <img src="${element.img}"/><span>${element.name}</span
-      ><img src="img/arrow.svg" alt="arrow" />`;
-    }
-  });
-};
+//Functions End ====>
 
-// =========================================================================
-// =========================== Functions ===================================
-// =========================================================================
+//Variables Start ====>
 
-const fromInputCurrencyContainer = document.querySelector(
-  ".from-input-currency-container"
-);
-const fromInput = document.querySelector(".from-input");
-const fromSearchInput = document.querySelector(".search-container input");
 const fromCurrencyElement = document.querySelector(".from-currency");
+
+const toCurrencyElement = document.querySelector(".to-currency");
+
 const fromModalContainerElement = document.querySelector(
   ".from-modal-container"
 );
-const overlayElement = document.querySelector(".overlay");
-const listElement = document.querySelector(".list");
 
-ratesRenderer(rates);
+const toModalContainerElement = document.querySelector(".to-modal-container");
 
-fromSearchInput.addEventListener("input", () => {
-  const fromSearchInputValue = fromSearchInput.value.toUpperCase();
-  searchCurrency(fromSearchInputValue);
-});
+const fromListElement = document.querySelector(".from-list");
 
-fromInputCurrencyContainer.addEventListener("mouseover", () => {
-  fromInputCurrencyContainer.classList.add("hover");
-});
+const toListElement = document.querySelector(".to-list");
 
-fromInputCurrencyContainer.addEventListener("mouseout", () => {
-  fromInputCurrencyContainer.classList.remove("hover");
-});
+const fromOverlayElement = document.querySelector(".from-overlay");
 
-fromInput.addEventListener("focus", () => {
-  fromInputCurrencyContainer.classList.add("focus");
-});
+const toOverlayElement = document.querySelector(".to-overlay");
 
-fromInput.addEventListener("blur", () => {
-  fromInputCurrencyContainer.classList.remove("focus");
-});
+const fromSearchContainerInput = document.querySelector(
+  ".from-search-container input"
+);
+
+const toSearchContainerInput = document.querySelector(
+  ".to-search-container input"
+);
+
+//Variables End ====>
+
+// Event Listeners Start ====>
 
 fromCurrencyElement.addEventListener("click", () => {
   fromModalContainerElement.classList.contains("hidden")
-    ? openModal()
-    : closeModal();
+    ? openModal(fromModalContainerElement, fromOverlayElement)
+    : closeModal(fromModalContainerElement, fromOverlayElement);
 });
 
-overlayElement.addEventListener("click", () => {
-  overlayElement.classList.add("hidden");
-  closeModal();
+toCurrencyElement.addEventListener("click", () => {
+  toModalContainerElement.classList.contains("hidden")
+    ? openModal(toModalContainerElement, toOverlayElement)
+    : closeModal(toModalContainerElement, toOverlayElement);
 });
+
+fromOverlayElement.addEventListener("click", () => {
+  closeModal(fromModalContainerElement, fromOverlayElement);
+});
+
+toOverlayElement.addEventListener("click", () => {
+  closeModal(toModalContainerElement, toOverlayElement);
+});
+
+fromSearchContainerInput.addEventListener("input", () => {
+  const fromSearchInputValue = fromSearchContainerInput.value.toUpperCase();
+  search(fromListElement, fromRatesArray, fromSearchInputValue);
+});
+
+toSearchContainerInput.addEventListener("input", () => {
+  const toSearchInputValue = toSearchContainerInput.value.toUpperCase();
+  search(toListElement, toRatesArray, toSearchInputValue);
+});
+
+// Event Listeners End ====>
+
+renderer(fromListElement, fromRatesArray);
+renderer(toListElement, toRatesArray);

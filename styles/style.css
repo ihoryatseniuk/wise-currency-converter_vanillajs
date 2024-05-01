@@ -19,7 +19,18 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
-.overlay {
+.from-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+}
+
+.to-overlay {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -63,6 +74,10 @@ input::-webkit-inner-spin-button {
   border-radius: 25px;
   grid-template-columns: 585px 100px 585px;
 }
+
+/* ===================================
+==========from-container===========
+=================================== */
 
 .from-container {
   position: relative;
@@ -151,19 +166,19 @@ input::-webkit-inner-spin-button {
   z-index: 100;
 }
 
-.search-container {
+.from-search-container {
   position: relative;
   width: 384px;
   padding: 16px 8px 10px 8px;
 }
 
-.search-container img {
+.from-search-container img {
   position: absolute;
   top: 31px;
   left: 28px;
 }
 
-.search-container input {
+.from-search-container input {
   border: none;
   outline: none;
   width: 100%;
@@ -175,18 +190,18 @@ input::-webkit-inner-spin-button {
   font-family: "Inter", sans-serif;
 }
 
-.search-container input::placeholder {
+.from-search-container input::placeholder {
   color: #868685;
 }
 
-.list-container {
+.from-list-container {
   width: 100%;
   max-height: 373px;
   padding: 0px 9px 0px 8px;
   overflow-y: scroll;
 }
 
-.list li {
+.from-list li {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -198,16 +213,168 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
-.list li:hover {
+.from-list li:hover {
   box-shadow: inset 0 0 0 1px #9d9d9d;
 }
 
-.list li div {
+.from-list li div {
   display: flex;
   align-items: center;
 }
 
-.list li img:nth-child(1) {
+.from-list li img:nth-child(1) {
+  width: 25px;
+  margin-right: 10px;
+}
+
+/* ===================================
+===========to-container============
+=================================== */
+
+.to-container {
+  position: relative;
+}
+
+.to-container p:nth-child(1) {
+  font-size: 13px;
+  font-weight: 400;
+  color: #77797e;
+  margin-bottom: 5px;
+}
+
+.to-input-currency-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: inset 0 0 0 1px #9d9d9d;
+  transition: 1s box-shadow ease;
+}
+
+.to-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  margin-left: 3px;
+  border-radius: 15px;
+  font-size: 27px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  padding: 23px 0px 26px 14px;
+}
+
+.hover {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #9d9d9d;
+}
+
+.focus {
+  box-shadow: inset 0 0 0 3px black;
+}
+
+.to-currency {
+  display: flex;
+  align-items: center;
+  padding: 31px 22px 32px 0;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.to-currency img:nth-child(1) {
+  width: 25px;
+}
+.to-currency span {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.to-rate {
+  max-width: 307px;
+  margin-top: 20px;
+}
+
+.to-rate p:nth-child(1) {
+  font-size: 27px;
+  font-weight: 500;
+  color: black;
+  margin-bottom: 3px;
+}
+
+.to-rate p:nth-child(2) {
+  font-size: 17px;
+  font-weight: 400;
+  color: #77797e;
+}
+
+.to-modal-container {
+  position: absolute;
+  top: 121px;
+  left: 75%;
+  width: 384px;
+  background-color: white;
+  border-radius: 0px 0px 11px 11px;
+  z-index: 100;
+}
+
+.to-search-container {
+  position: relative;
+  width: 384px;
+  padding: 16px 8px 10px 8px;
+}
+
+.to-search-container img {
+  position: absolute;
+  top: 31px;
+  left: 28px;
+}
+
+.to-search-container input {
+  border: none;
+  outline: none;
+  width: 100%;
+  border-radius: 10px;
+  padding: 12px 0px 12px 41px;
+  border: 3px solid #163300;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+}
+
+.to-search-container input::placeholder {
+  color: #868685;
+}
+
+.to-list-container {
+  width: 100%;
+  max-height: 373px;
+  padding: 0px 9px 0px 8px;
+  overflow-y: scroll;
+}
+
+.to-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 15px 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.to-list li:hover {
+  box-shadow: inset 0 0 0 1px #9d9d9d;
+}
+
+.to-list li div {
+  display: flex;
+  align-items: center;
+}
+
+.to-list li img:nth-child(1) {
   width: 25px;
   margin-right: 10px;
 }
