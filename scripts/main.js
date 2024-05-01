@@ -40,6 +40,10 @@ const renderer = (listElement, array) => {
   if (listElement === fromListElement) {
     listElement.innerHTML = "";
     array.forEach((element) => {
+      if (element.picked) {
+        fromCurrencyElementImage.src = `${element.img}`;
+        fromCurrencyElementText.innerHTML = `${element.name}`;
+      }
       listElement.innerHTML += `<li class="from-li-element">
     <div><img src="${element.img}" /><span>${element.name}</span></div>
     <img src="${element.picked ? "img/picked.svg" : ""}" />
@@ -77,6 +81,10 @@ const renderer = (listElement, array) => {
   } else if (listElement === toListElement) {
     listElement.innerHTML = "";
     array.forEach((element) => {
+      if (element.picked) {
+        toCurrencyElementImage.src = `${element.img}`;
+        toCurrencyElementText.innerHTML = `${element.name}`;
+      }
       listElement.innerHTML += `<li class="to-li-element">
     <div><img src="${element.img}" /><span>${element.name}</span></div>
     <img src="${element.picked ? "img/picked.svg" : ""}" />
@@ -126,8 +134,26 @@ const search = (listElement, array, value) => {
 //Variables Start ====>
 
 const fromCurrencyElement = document.querySelector(".from-currency");
+const fromCurrencyElementImage = document.querySelector(".from-currency img");
+const fromCurrencyElementText = document.querySelector(".from-currency span");
+
+const fromInputCurrencyContainerElement = document.querySelector(
+  ".from-input-currency-container"
+);
+const toInputCurrencyContainerElement = document.querySelector(
+  ".to-input-currency-container"
+);
+
+const fromInputCurrencyContainerInputElement = document.querySelector(
+  ".from-input-currency-container input"
+);
+const toInputCurrencyContainerInputElement = document.querySelector(
+  ".to-input-currency-container input"
+);
 
 const toCurrencyElement = document.querySelector(".to-currency");
+const toCurrencyElementImage = document.querySelector(".to-currency img");
+const toCurrencyElementText = document.querySelector(".to-currency span");
 
 const fromModalContainerElement = document.querySelector(
   ".from-modal-container"
@@ -183,6 +209,30 @@ fromSearchContainerInput.addEventListener("input", () => {
 toSearchContainerInput.addEventListener("input", () => {
   const toSearchInputValue = toSearchContainerInput.value.toUpperCase();
   search(toListElement, toRatesArray, toSearchInputValue);
+});
+
+fromInputCurrencyContainerElement.addEventListener("mouseover", () => {
+  fromInputCurrencyContainerElement.classList.add("hover");
+});
+
+fromInputCurrencyContainerInputElement.addEventListener("focus", () => {
+  fromInputCurrencyContainerElement.classList.add("focus");
+});
+
+fromInputCurrencyContainerInputElement.addEventListener("blur", () => {
+  fromInputCurrencyContainerElement.classList.remove("hover", "focus");
+});
+
+toInputCurrencyContainerElement.addEventListener("mouseover", () => {
+  toInputCurrencyContainerElement.classList.add("hover");
+});
+
+toInputCurrencyContainerInputElement.addEventListener("focus", () => {
+  toInputCurrencyContainerElement.classList.add("focus");
+});
+
+toInputCurrencyContainerInputElement.addEventListener("blur", () => {
+  toInputCurrencyContainerElement.classList.remove("hover", "focus");
 });
 
 // Event Listeners End ====>
