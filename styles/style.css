@@ -42,24 +42,26 @@ input::-webkit-inner-spin-button {
 }
 
 .main-container {
-  max-width: 1350px;
+  max-width: 1500px;
   margin: 0 auto;
   margin-top: 211px;
   margin-bottom: 2000px;
 }
 
 .paragraphs-container {
-  max-width: 1210px;
-  margin: 0 auto;
+  max-width: 1350px;
+  margin-left: 75px;
 }
 
 .paragraphs-container p:nth-child(1) {
+  margin-left: 75px;
   font-size: 46px;
   font-weight: 900;
   color: #9fe870;
 }
 
 .paragraphs-container p:nth-child(2) {
+  margin-left: 75px;
   margin-top: 58px;
   font-size: 32px;
   font-weight: 900;
@@ -68,11 +70,14 @@ input::-webkit-inner-spin-button {
 
 .converter-container {
   display: grid;
+  max-width: 1350px;
+  margin-left: 75px;
+  margin-right: 75px;
   margin-top: 88px;
   background-color: #ffffff;
   padding: 21px 40px 35px 40px;
   border-radius: 25px;
-  grid-template-columns: 585px 100px 585px;
+  grid-template-columns: 1fr 100px 1fr;
 }
 
 /* From Container Start ====> */
@@ -319,7 +324,7 @@ input::-webkit-inner-spin-button {
 .to-modal-container {
   position: absolute;
   top: 121px;
-  left: 75%;
+  right: 0%;
   width: 384px;
   background-color: white;
   border-radius: 0px 0px 11px 11px;
@@ -389,14 +394,21 @@ input::-webkit-inner-spin-button {
 
 /* To Container End ====> */
 
-/* Get Exchange Rate Button Start ====> */
+/* Get Exchange Rate Container Start ====> */
+
+.get-exchange-rate-button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
 
 .get-exchange-rate-button {
   display: inline-block;
-  padding: 20px 61px 21px 60px;
+  width: 292px;
+  padding: 20px 0px 21px 0px;
   border-radius: 44px;
   margin-top: 25px;
-  margin-left: 293px;
+  text-align: center;
   background-color: #9fe870;
   font-weight: 600;
   font-family: "Inter", sans-serif;
@@ -407,4 +419,25 @@ input::-webkit-inner-spin-button {
   background-color: #b6e996;
 }
 
-/* Get Exchange Rate Button End ====> */
+/* Get Exchange Rate Container End ====> */
+
+/* Media Queries Start ====> */
+
+@media screen and (max-width: 1000px) {
+  .converter-container {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 100px 1fr;
+  }
+
+  .from-modal-container {
+    left: initial;
+    right: 0%;
+  }
+
+  .revert-image {
+    margin-top: 27px;
+    margin-left: 50%;
+  }
+}
+
+/* Media Queries End ====> */
