@@ -390,3 +390,7 @@ input::-webkit-inner-spin-button {
   font-family: "Inter", sans-serif;
   cursor: pointer;
 }
+
+.get-exchange-rate-button:active {
+  background-color: #b6e996;
+}

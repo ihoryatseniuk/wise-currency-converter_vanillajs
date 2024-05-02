@@ -49,6 +49,7 @@ const closeModal = (modalContainerElement, overlayElement) => {
 };
 
 const renderer = (listElement, array) => {
+  // toInputCurrencyContainerInputElement.value = "";
   rateRenderer();
   if (listElement === fromListElement) {
     listElement.innerHTML = "";
@@ -88,6 +89,7 @@ const renderer = (listElement, array) => {
         }
         renderer(listElement, array);
         closeModal(fromModalContainerElement, fromOverlayElement);
+        calculateResult();
       });
     });
 
@@ -131,6 +133,7 @@ const renderer = (listElement, array) => {
 
         renderer(listElement, array);
         closeModal(toModalContainerElement, toOverlayElement);
+        calculateResult();
       });
     });
 
@@ -171,6 +174,39 @@ const rateRenderer = () => {
     2
   )}</span> ${toCurrency}</p>
   <p>Mid-market exchange rate at 10:04</p>`;
+};
+
+const calculateResult = () => {
+  let fromCurrencyRate;
+  let toCurrencyRate;
+
+  fromCurrencyRate = fromRatesArray.find((element) => element.picked === true);
+  toCurrencyRate = toRatesArray.find((element) => element.picked === true);
+
+  const result =
+    fromInputCurrencyContainerInputElement.value *
+    (toCurrencyRate.rate / fromCurrencyRate.rate);
+  toInputCurrencyContainerInputElement.value = result.toFixed(2);
+};
+
+const calculateInputsValueOnChange = (identificator) => {
+  let fromCurrencyRate;
+  let toCurrencyRate;
+
+  fromCurrencyRate = fromRatesArray.find((element) => element.picked === true);
+  toCurrencyRate = toRatesArray.find((element) => element.picked === true);
+
+  if (identificator === "from") {
+    const result =
+      fromInputCurrencyContainerInputElement.value *
+      (toCurrencyRate.rate / fromCurrencyRate.rate);
+    toInputCurrencyContainerInputElement.value = result.toFixed(2);
+  } else if (identificator === "to") {
+    const result =
+      toInputCurrencyContainerInputElement.value *
+      (fromCurrencyRate.rate / toCurrencyRate.rate);
+    fromInputCurrencyContainerInputElement.value = result.toFixed(2);
+  }
 };
 
 //Functions End ====>
@@ -226,6 +262,10 @@ const toSearchContainerInput = document.querySelector(
   ".to-search-container input"
 );
 
+const getExchangeRateButtonElement = document.querySelector(
+  ".get-exchange-rate-button"
+);
+
 //Variables End ====>
 
 // Event Listeners Start ====>
@@ -264,6 +304,10 @@ fromInputCurrencyContainerElement.addEventListener("mouseover", () => {
   fromInputCurrencyContainerElement.classList.add("hover");
 });
 
+fromInputCurrencyContainerElement.addEventListener("mouseout", () => {
+  fromInputCurrencyContainerElement.classList.remove("hover");
+});
+
 fromInputCurrencyContainerInputElement.addEventListener("focus", () => {
   fromInputCurrencyContainerElement.classList.add("focus");
 });
@@ -276,6 +320,10 @@ toInputCurrencyContainerElement.addEventListener("mouseover", () => {
   toInputCurrencyContainerElement.classList.add("hover");
 });
 
+toInputCurrencyContainerElement.addEventListener("mouseout", () => {
+  toInputCurrencyContainerElement.classList.remove("hover");
+});
+
 toInputCurrencyContainerInputElement.addEventListener("focus", () => {
   toInputCurrencyContainerElement.classList.add("focus");
 });
@@ -284,8 +332,21 @@ toInputCurrencyContainerInputElement.addEventListener("blur", () => {
   toInputCurrencyContainerElement.classList.remove("hover", "focus");
 });
 
+toInputCurrencyContainerInputElement.addEventListener("input", () => {
+  calculateInputsValueOnChange("to");
+});
+
+fromInputCurrencyContainerInputElement.addEventListener("input", () => {
+  calculateInputsValueOnChange("from");
+});
+
+getExchangeRateButtonElement.addEventListener("click", () => {
+  calculateResult();
+});
+
 // Event Listeners End ====>
 
 renderer(fromListElement, fromRatesArray);
 renderer(toListElement, toRatesArray);
 rateRenderer();
+toInputCurrencyContainerInputElement.value = 40000;
