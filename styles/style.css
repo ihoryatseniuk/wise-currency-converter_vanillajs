@@ -75,9 +75,7 @@ input::-webkit-inner-spin-button {
   grid-template-columns: 585px 100px 585px;
 }
 
-/* ===================================
-==========from-container===========
-=================================== */
+/* From Container Start ====> */
 
 .from-container {
   position: relative;
@@ -227,9 +225,19 @@ input::-webkit-inner-spin-button {
   margin-right: 10px;
 }
 
-/* ===================================
-===========to-container============
-=================================== */
+/* From Container End ====> */
+
+/* Revert Container Start ====> */
+
+.revert-image {
+  margin-top: 41px;
+  margin-left: 27px;
+  cursor: pointer;
+}
+
+/* Revert Container End ====> */
+
+/* To Container Start ====> */
 
 .to-container {
   position: relative;
@@ -379,6 +387,10 @@ input::-webkit-inner-spin-button {
   margin-right: 10px;
 }
 
+/* To Container End ====> */
+
+/* Get Exchange Rate Button Start ====> */
+
 .get-exchange-rate-button {
   display: inline-block;
   padding: 20px 61px 21px 60px;
@@ -394,3 +406,5 @@ input::-webkit-inner-spin-button {
 .get-exchange-rate-button:active {
   background-color: #b6e996;
 }
+
+/* Get Exchange Rate Button End ====> */

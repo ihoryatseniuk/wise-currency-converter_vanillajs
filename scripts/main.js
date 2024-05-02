@@ -209,6 +209,34 @@ const calculateInputsValueOnChange = (identificator) => {
   }
 };
 
+const revertCurrencies = () => {
+  const fromCurrency = fromRatesArray.find(
+    (element) => element.picked === true
+  );
+  const toCurrency = toRatesArray.find((element) => element.picked === true);
+
+  for (let i = 0; i < fromRatesArray.length; i++) {
+    fromRatesArray[i].picked = false;
+    toRatesArray[i].picked = false;
+  }
+
+  for (let i = 0; i < toRatesArray.length; i++) {
+    if (toRatesArray[i].name === fromCurrency.name) {
+      toRatesArray[i].picked = true;
+    }
+  }
+
+  for (let i = 0; i < fromRatesArray.length; i++) {
+    if (fromRatesArray[i].name === toCurrency.name) {
+      fromRatesArray[i].picked = true;
+    }
+  }
+
+  renderer(fromListElement, fromRatesArray);
+  renderer(toListElement, toRatesArray);
+  calculateInputsValueOnChange("from");
+};
+
 //Functions End ====>
 
 //Variables Start ====>
@@ -265,6 +293,8 @@ const toSearchContainerInput = document.querySelector(
 const getExchangeRateButtonElement = document.querySelector(
   ".get-exchange-rate-button"
 );
+
+const revertImageElement = document.querySelector(".revert-image");
 
 //Variables End ====>
 
@@ -342,6 +372,10 @@ fromInputCurrencyContainerInputElement.addEventListener("input", () => {
 
 getExchangeRateButtonElement.addEventListener("click", () => {
   calculateResult();
+});
+
+revertImageElement.addEventListener("click", () => {
+  revertCurrencies();
 });
 
 // Event Listeners End ====>
